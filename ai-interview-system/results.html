@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results & Analytics - AI Interview Hub</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h2>AI Interview Hub</h2>
+            <div class="nav-right">
+                <button onclick="location.href='dashboard.html'" class="btn-secondary">Back to Dashboard</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="results-container">
+        <h1>Results & Analytics</h1>
+        <p class="subtitle">Your Complete Performance Overview</p>
+        
+        <!-- Overall Status -->
+        <div class="status-card" id="statusCard">
+            <h2 id="overallStatus">Calculating...</h2>
+            <p id="statusMessage">Loading your results...</p>
+        </div>
+        
+        <!-- Performance Charts -->
+        <div class="charts-grid">
+            <div class="chart-card">
+                <h3>Test Performance Overview</h3>
+                <canvas id="performanceChart"></canvas>
+            </div>
+            
+            <div class="chart-card">
+                <h3>Category-wise Scores</h3>
+                <canvas id="categoryChart"></canvas>
+            </div>
+        </div>
+        
+        <!-- Detailed Results -->
+        <div class="detailed-results">
+            <h3>Detailed Performance</h3>
+            
+            <div class="result-category">
+                <h4>📊 Aptitude Tests</h4>
+                <div id="aptitudeResults" class="category-results"></div>
+            </div>
+            
+            <div class="result-category">
+                <h4>💻 Technical Interviews</h4>
+                <div id="technicalResults" class="category-results"></div>
+            </div>
+            
+            <div class="result-category">
+                <h4>🎤 Voice Interview</h4>
+                <div id="voiceResults" class="category-results"></div>
+            </div>
+        </div>
+        
+        <!-- Recommendations -->
+        <div class="recommendations-card">
+            <h3>Recommendations</h3>
+            <div id="recommendations"></div>
+        </div>
+    </div>
+
+    <script type="module" src="js/results.js"></script>
+</body>
+</html>

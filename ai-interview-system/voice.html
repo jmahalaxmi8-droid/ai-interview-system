@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Interview - AI Interview Hub</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h2>AI Interview Hub</h2>
+            <div class="nav-right">
+                <button onclick="location.href='dashboard.html'" class="btn-secondary">Back to Dashboard</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="voice-container">
+        <h1>Voice Interview</h1>
+        <p class="subtitle">AI-Powered Speech and Emotion Analysis</p>
+        
+        <div class="voice-card">
+            <div class="recording-status">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <span id="statusText">Ready to Record</span>
+            </div>
+            
+            <div class="voice-controls">
+                <button id="startRecording" class="btn-voice btn-start">
+                    <span class="btn-icon">🎤</span>
+                    Start Recording
+                </button>
+                <button id="stopRecording" class="btn-voice btn-stop" disabled>
+                    <span class="btn-icon">⏹️</span>
+                    Stop Recording
+                </button>
+            </div>
+            
+            <div class="transcript-container">
+                <h3>Live Transcript</h3>
+                <div id="transcript" class="transcript-box">
+                    Your speech will appear here...
+                </div>
+            </div>
+            
+            <div class="emotion-container">
+                <h3>Detected Emotions</h3>
+                <div id="emotionDisplay" class="emotion-display">
+                    <div class="emotion-item">
+                        <span class="emotion-label">😊 Happy:</span>
+                        <div class="emotion-bar">
+                            <div class="emotion-fill" id="happyBar"></div>
+                        </div>
+                        <span id="happyPercent">0%</span>
+                    </div>
+                    <div class="emotion-item">
+                        <span class="emotion-label">😢 Sad:</span>
+                        <div class="emotion-bar">
+                            <div class="emotion-fill" id="sadBar"></div>
+                        </div>
+                        <span id="sadPercent">0%</span>
+                    </div>
+                    <div class="emotion-item">
+                        <span class="emotion-label">💪 Bold:</span>
+                        <div class="emotion-bar">
+                            <div class="emotion-fill" id="boldBar"></div>
+                        </div>
+                        <span id="boldPercent">0%</span>
+                    </div>
+                    <div class="emotion-item">
+                        <span class="emotion-label">😰 Sorrow:</span>
+                        <div class="emotion-bar">
+                            <div class="emotion-fill" id="sorrowBar"></div>
+                        </div>
+                        <span id="sorrowPercent">0%</span>
+                    </div>
+                    <div class="emotion-item">
+                        <span class="emotion-label">😎 Confident:</span>
+                        <div class="emotion-bar">
+                            <div class="emotion-fill" id="confidentBar"></div>
+                        </div>
+                        <span id="confidentPercent">0%</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dominant-emotion">
+                <h3>Dominant Emotion</h3>
+                <div id="dominantEmotion" class="emotion-badge">Not Analyzed Yet</div>
+            </div>
+            
+            <button id="saveInterview" class="btn-primary" style="display: none;">Save Interview</button>
+        </div>
+    </div>
+
+    <script type="module" src="js/voice.js"></script>
+</body>
+</html>

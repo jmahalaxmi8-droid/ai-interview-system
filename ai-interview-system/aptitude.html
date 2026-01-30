@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aptitude Test - AI Interview Hub</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h2>AI Interview Hub</h2>
+            <div class="nav-right">
+                <button onclick="location.href='dashboard.html'" class="btn-secondary">Back to Dashboard</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="test-container">
+        <!-- Topic Selection -->
+        <div id="topicSelection" class="topic-selection">
+            <h1>Aptitude Test</h1>
+            <p class="subtitle">Select a topic to begin</p>
+            
+            <div class="topics-grid">
+                <div class="topic-card" data-topic="percentage">
+                    <h3>Percentage</h3>
+                    <p>15 Questions • 25 Minutes</p>
+                </div>
+                <div class="topic-card" data-topic="probability">
+                    <h3>Probability</h3>
+                    <p>15 Questions • 25 Minutes</p>
+                </div>
+                <div class="topic-card" data-topic="mixtures">
+                    <h3>Mixtures</h3>
+                    <p>15 Questions • 25 Minutes</p>
+                </div>
+                <div class="topic-card" data-topic="ages">
+                    <h3>Ages</h3>
+                    <p>15 Questions • 25 Minutes</p>
+                </div>
+                <div class="topic-card" data-topic="calendars">
+                    <h3>Calendars</h3>
+                    <p>15 Questions • 25 Minutes</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Section -->
+        <div id="testSection" class="test-section" style="display: none;">
+            <div class="test-header">
+                <h2 id="topicTitle">Aptitude Test</h2>
+                <div class="timer">
+                    <span class="timer-label">Time Remaining:</span>
+                    <span id="timer">25:00</span>
+                </div>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+            
+            <div id="questionContainer" class="question-container"></div>
+            
+            <div class="test-navigation">
+                <button id="prevBtn" class="btn-secondary">Previous</button>
+                <span id="questionNumber">Question 1 of 15</span>
+                <button id="nextBtn" class="btn-primary">Next</button>
+            </div>
+            
+            <button id="submitTest" class="btn-submit">Submit Test</button>
+        </div>
+
+        <!-- Results Section -->
+        <div id="resultsSection" class="results-section" style="display: none;">
+            <h1>Test Results</h1>
+            <div class="score-card">
+                <h2 id="scorePercentage">0%</h2>
+                <p>Your Score</p>
+            </div>
+            
+            <div class="results-summary">
+                <div class="summary-item">
+                    <span class="summary-label">Correct Answers:</span>
+                    <span id="correctCount">0</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Wrong Answers:</span>
+                    <span id="wrongCount">0</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Total Questions:</span>
+                    <span>15</span>
+                </div>
+            </div>
+            
+            <h3>Review Incorrect Answers</h3>
+            <div id="reviewContainer"></div>
+            
+            <button onclick="location.href='dashboard.html'" class="btn-primary">Back to Dashboard</button>
+        </div>
+    </div>
+
+    <script type="module" src="js/aptitude.js"></script>
+</body>
+</html>

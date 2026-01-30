@@ -1,0 +1,163 @@
+{
+  "questions": {
+    "aptitude": {
+      "percentage": {
+        "q1": {
+          "question": "What is 15% of 200?",
+          "options": ["25", "30", "35", "40"],
+          "correct": 1
+        },
+        "q2": {
+          "question": "If 20% of a number is 50, what is the number?",
+          "options": ["200", "250", "300", "350"],
+          "correct": 1
+        },
+        "q3": {
+          "question": "A shirt is marked at $80 and sold at a 25% discount. What is the sale price?",
+          "options": ["$50", "$55", "$60", "$65"],
+          "correct": 2
+        }
+      },
+      "probability": {
+        "q1": {
+          "question": "What is the probability of getting heads when flipping a fair coin?",
+          "options": ["1/4", "1/3", "1/2", "2/3"],
+          "correct": 2
+        },
+        "q2": {
+          "question": "A die is rolled. What is the probability of getting a number greater than 4?",
+          "options": ["1/6", "1/3", "1/2", "2/3"],
+          "correct": 1
+        }
+      },
+      "mixtures": {
+        "q1": {
+          "question": "Two solutions containing 20% and 40% alcohol are mixed in ratio 2:3. What is the concentration?",
+          "options": ["28%", "30%", "32%", "34%"],
+          "correct": 2
+        }
+      },
+      "ages": {
+        "q1": {
+          "question": "A father is 3 times as old as his son. After 15 years, he will be twice as old. What is the son's age?",
+          "options": ["10", "15", "20", "25"],
+          "correct": 1
+        }
+      },
+      "calendars": {
+        "q1": {
+          "question": "If January 1, 2020 was Wednesday, what day was January 1, 2021?",
+          "options": ["Thursday", "Friday", "Saturday", "Sunday"],
+          "correct": 1
+        }
+      }
+    },
+    "technical": {
+      "html": {
+        "q1": {
+          "question": "What does HTML stand for?",
+          "options": ["Hyper Text Markup Language", "High Tech Modern Language", "Home Tool Markup Language", "Hyperlinks and Text Markup Language"],
+          "correct": 0
+        },
+        "q2": {
+          "question": "Which HTML tag is used to define an internal style sheet?",
+          "options": ["<css>", "<script>", "<style>", "<link>"],
+          "correct": 2
+        }
+      },
+      "java": {
+        "q1": {
+          "question": "Which of these is not a Java feature?",
+          "options": ["Object-oriented", "Use of pointers", "Portable", "Dynamic"],
+          "correct": 1
+        },
+        "q2": {
+          "question": "What is the size of int in Java?",
+          "options": ["16 bit", "32 bit", "64 bit", "Depends on system"],
+          "correct": 1
+        }
+      },
+      "css": {
+        "q1": {
+          "question": "What does CSS stand for?",
+          "options": ["Creative Style Sheets", "Cascading Style Sheets", "Computer Style Sheets", "Colorful Style Sheets"],
+          "correct": 1
+        }
+      },
+      "php": {
+        "q1": {
+          "question": "What does PHP stand for?",
+          "options": ["Personal Home Page", "PHP: Hypertext Preprocessor", "Private Home Page", "Public Hypertext Preprocessor"],
+          "correct": 1
+        }
+      },
+      "python": {
+        "q1": {
+          "question": "Which of the following is used to define a block of code in Python?",
+          "options": ["Brackets", "Indentation", "Key", "None"],
+          "correct": 1
+        }
+      },
+      "sql": {
+        "q1": {
+          "question": "What does SQL stand for?",
+          "options": ["Structured Query Language", "Strong Question Language", "Structured Question Language", "Strong Query Language"],
+          "correct": 0
+        }
+      }
+    }
+  },
+  "users": {
+    "sampleUser123": {
+      "fullName": "Sample User",
+      "email": "sample@example.com",
+      "registrationDate": "2024-01-30T10:00:00.000Z",
+      "aptitudeTests": {
+        "percentage": {
+          "score": 85,
+          "correctAnswers": 13,
+          "totalQuestions": 15,
+          "date": "2024-01-30T11:00:00.000Z",
+          "topic": "percentage"
+        },
+        "probability": {
+          "score": 75,
+          "correctAnswers": 11,
+          "totalQuestions": 15,
+          "date": "2024-01-30T11:30:00.000Z",
+          "topic": "probability"
+        }
+      },
+      "technicalTests": {
+        "html": {
+          "score": 90,
+          "correctAnswers": 14,
+          "totalQuestions": 15,
+          "date": "2024-01-30T12:00:00.000Z",
+          "topic": "html"
+        },
+        "java": {
+          "score": 80,
+          "correctAnswers": 12,
+          "totalQuestions": 15,
+          "date": "2024-01-30T12:30:00.000Z",
+          "topic": "java"
+        }
+      },
+      "voiceInterviews": {
+        "1706616000000": {
+          "transcript": "I am a confident software developer with strong technical skills. I have experience in Java, Python, and web development. I believe I can contribute effectively to your team.",
+          "emotionScores": {
+            "happy": 5,
+            "sad": 0,
+            "bold": 3,
+            "sorrow": 0,
+            "confident": 10
+          },
+          "dominantEmotion": "confident",
+          "date": "2024-01-30T13:00:00.000Z"
+        }
+      }
+    }
+  }
+}
