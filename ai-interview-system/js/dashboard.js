@@ -4,17 +4,35 @@ import { ref, get } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-dat
 
 // Check authentication
 onAuthStateChanged(auth, async (user) => {
-    if (!user && !localStorage.getItem('isAdmin')) {
+    // Check if user is logged in or admin
+    const isAdmin = localStorage.getItem('isAdmin');
+    
+    if (!user && !isAdmin) {
+        // No user logged in, redirect to login
         window.location.href = 'index.html';
-    } else if (user) {
-        // Load user name
-        const userRef = ref(database, 'users/' + user.uid);
-        const snapshot = await get(userRef);
-        if (snapshot.exists()) {
-            const userData = snapshot.val();
-            document.getElementById('userName').textContent = `Welcome, ${userData.fullName}`;
+        return;
+    }
+    
+    if (user) {
+        // Regular user - load their data
+        try {
+            const userRef = ref(database, 'users/' + user.uid);
+            const snapshot = await get(userRef);
+            
+            if (snapshot.exists()) {
+                const userData = snapshot.val();
+                document.getElementById('userName').textContent = `Welcome, ${userData.fullName}`;
+            } else {
+                // User exists in auth but not in database - show email
+                document.getElementById('userName').textContent = `Welcome, ${user.email}`;
+            }
+        } catch (error) {
+            console.error('Error loading user data:', error);
+            // Fallback to email if database read fails
+            document.getElementById('userName').textContent = `Welcome, ${user.email}`;
         }
-    } else if (localStorage.getItem('isAdmin')) {
+    } else if (isAdmin) {
+        // Admin user
         document.getElementById('userName').textContent = 'Welcome, Admin';
     }
 });
@@ -23,9 +41,12 @@ onAuthStateChanged(auth, async (user) => {
 document.getElementById('logoutBtn').addEventListener('click', async () => {
     try {
         if (localStorage.getItem('isAdmin')) {
+            // Admin logout
             localStorage.removeItem('isAdmin');
             localStorage.removeItem('userEmail');
+            localStorage.removeItem('userName');
         } else {
+            // Regular user logout
             await signOut(auth);
             localStorage.clear();
         }

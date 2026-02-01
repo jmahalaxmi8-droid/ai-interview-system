@@ -57,6 +57,7 @@ loginForm.addEventListener('submit', async (e) => {
     if (email === 'admin@aiinterview.com' && password === 'admin123') {
         localStorage.setItem('isAdmin', 'true');
         localStorage.setItem('userEmail', email);
+        localStorage.setItem('userName', 'Admin');
         window.location.href = 'admin.html';
         return;
     }
@@ -75,21 +76,28 @@ loginForm.addEventListener('submit', async (e) => {
     } catch (error) {
         console.error('Login error:', error);
         
+        // Handle different error types
         switch (error.code) {
             case 'auth/user-not-found':
-                emailError.textContent = 'No account found with this email';
+                emailError.textContent = 'No account found with this email. Please sign up first.';
                 break;
             case 'auth/wrong-password':
-                passwordError.textContent = 'Incorrect password';
+                passwordError.textContent = 'Incorrect password. Please try again.';
                 break;
             case 'auth/invalid-email':
                 emailError.textContent = 'Invalid email format';
                 break;
+            case 'auth/invalid-credential':
+                emailError.textContent = 'Invalid credentials. Please check your email and password.';
+                break;
             case 'auth/too-many-requests':
-                passwordError.textContent = 'Too many failed attempts. Please try again later';
+                passwordError.textContent = 'Too many failed attempts. Please try again later.';
+                break;
+            case 'auth/network-request-failed':
+                passwordError.textContent = 'Network error. Please check your internet connection.';
                 break;
             default:
-                passwordError.textContent = 'Login failed. Please try again';
+                passwordError.textContent = 'Login failed: ' + (error.message || 'Please try again');
         }
     }
 });
