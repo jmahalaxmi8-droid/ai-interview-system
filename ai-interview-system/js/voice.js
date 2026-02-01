@@ -7,10 +7,7 @@ let recognition = null;
 let isRecording = false;
 let transcript = '';
 let emotionScores = {
-    happy: 0,
-    sad: 0,
-    bold: 0,
-    sorrow: 0,
+    notconfident: 0,
     confident: 0
 };
 
@@ -78,7 +75,7 @@ document.getElementById('startRecording').addEventListener('click', () => {
     
     isRecording = true;
     transcript = '';
-    emotionScores = { happy: 0, sad: 0, bold: 0, sorrow: 0, confident: 0 };
+    emotionScores = { notconfident: 0, confident: 0 };
     
     document.getElementById('transcript').textContent = 'Listening...';
     document.getElementById('statusIndicator').classList.add('recording');
@@ -114,32 +111,24 @@ document.getElementById('stopRecording').addEventListener('click', () => {
 function analyzeEmotions(text) {
     const lowerText = text.toLowerCase();
     
-    // Happy keywords
-    const happyKeywords = ['happy', 'joy', 'excited', 'great', 'wonderful', 'amazing', 'excellent', 'fantastic', 'love', 'enjoy', 'glad', 'pleased', 'delighted', 'cheerful'];
-    happyKeywords.forEach(keyword => {
-        if (lowerText.includes(keyword)) emotionScores.happy += 2;
-    });
-    
-    // Sad keywords
-    const sadKeywords = ['sad', 'unhappy', 'disappointed', 'down', 'upset', 'depressed', 'miserable', 'unfortunate', 'regret', 'sorry'];
-    sadKeywords.forEach(keyword => {
-        if (lowerText.includes(keyword)) emotionScores.sad += 2;
-    });
-    
-    // Bold/Strong keywords
-    const boldKeywords = ['strong', 'powerful', 'bold', 'determined', 'assertive', 'brave', 'courageous', 'fierce', 'tough', 'resilient'];
-    boldKeywords.forEach(keyword => {
-        if (lowerText.includes(keyword)) emotionScores.bold += 2;
-    });
-    
-    // Sorrow keywords
-    const sorrowKeywords = ['sorrow', 'grief', 'pain', 'hurt', 'suffering', 'agony', 'anguish', 'distress', 'troubled', 'worried'];
-    sorrowKeywords.forEach(keyword => {
-        if (lowerText.includes(keyword)) emotionScores.sorrow += 2;
+    // Not Confident keywords
+    const notConfidentKeywords = [
+        'maybe', 'perhaps', 'might', 'possibly', 'unsure', 'uncertain', 
+        'don\'t know', 'not sure', 'i think', 'i guess', 'kind of', 
+        'sort of', 'um', 'uh', 'er', 'hmm', 'nervous', 'worried', 
+        'scared', 'afraid', 'doubt', 'hesitant', 'uncomfortable'
+    ];
+    notConfidentKeywords.forEach(keyword => {
+        if (lowerText.includes(keyword)) emotionScores.notconfident += 2;
     });
     
     // Confident keywords
-    const confidentKeywords = ['confident', 'sure', 'certain', 'believe', 'trust', 'capable', 'skilled', 'competent', 'able', 'ready', 'prepared', 'experienced'];
+    const confidentKeywords = [
+        'confident', 'sure', 'certain', 'definitely', 'absolutely', 
+        'clearly', 'obviously', 'believe', 'trust', 'capable', 
+        'skilled', 'competent', 'able', 'ready', 'prepared', 
+        'experienced', 'know', 'will', 'can', 'achieve', 'succeed'
+    ];
     confidentKeywords.forEach(keyword => {
         if (lowerText.includes(keyword)) emotionScores.confident += 2;
     });
@@ -149,18 +138,33 @@ function analyzeEmotions(text) {
     sentences.forEach(sentence => {
         const trimmed = sentence.trim();
         if (trimmed) {
-            // Exclamation marks indicate excitement/happiness
-            if (sentence.includes('!')) emotionScores.happy += 1;
+            // Exclamation marks indicate confidence
+            if (sentence.includes('!')) emotionScores.confident += 1;
             
-            // Questions might indicate confidence in asking
-            if (sentence.includes('?')) emotionScores.confident += 0.5;
+            // Too many questions might indicate lack of confidence
+            if (sentence.includes('?')) {
+                // Check if it's a rhetorical/confident question
+                if (/\b(can't we|shouldn't we|isn't it|right\?|correct\?)\b/i.test(trimmed)) {
+                    emotionScores.confident += 0.5;
+                } else {
+                    emotionScores.notconfident += 0.3;
+                }
+            }
             
             // Long, complex sentences indicate confidence
             if (trimmed.split(' ').length > 15) emotionScores.confident += 1;
             
+            // Short, choppy sentences might indicate nervousness
+            if (trimmed.split(' ').length < 5) emotionScores.notconfident += 0.5;
+            
             // Use of "I can", "I will", "I am" indicates confidence
-            if (/\b(i can|i will|i am|i'm)\b/i.test(trimmed)) {
+            if (/\b(i can|i will|i am confident|i'm confident|i know)\b/i.test(trimmed)) {
                 emotionScores.confident += 1.5;
+            }
+            
+            // Hedging language indicates lack of confidence
+            if (/\b(probably|basically|actually|literally|like)\b/i.test(trimmed)) {
+                emotionScores.notconfident += 0.5;
             }
         }
     });
@@ -172,7 +176,14 @@ function analyzeEmotions(text) {
 function updateEmotionDisplay() {
     const total = Object.values(emotionScores).reduce((a, b) => a + b, 0);
     
-    if (total === 0) return;
+    if (total === 0) {
+        // Show 50-50 split if no data
+        document.getElementById('notconfidentBar').style.width = '50%';
+        document.getElementById('notconfidentPercent').textContent = '50%';
+        document.getElementById('confidentBar').style.width = '50%';
+        document.getElementById('confidentPercent').textContent = '50%';
+        return;
+    }
     
     // Calculate percentages
     const percentages = {};
@@ -181,17 +192,8 @@ function updateEmotionDisplay() {
     }
     
     // Update bars
-    document.getElementById('happyBar').style.width = percentages.happy + '%';
-    document.getElementById('happyPercent').textContent = percentages.happy + '%';
-    
-    document.getElementById('sadBar').style.width = percentages.sad + '%';
-    document.getElementById('sadPercent').textContent = percentages.sad + '%';
-    
-    document.getElementById('boldBar').style.width = percentages.bold + '%';
-    document.getElementById('boldPercent').textContent = percentages.bold + '%';
-    
-    document.getElementById('sorrowBar').style.width = percentages.sorrow + '%';
-    document.getElementById('sorrowPercent').textContent = percentages.sorrow + '%';
+    document.getElementById('notconfidentBar').style.width = percentages.notconfident + '%';
+    document.getElementById('notconfidentPercent').textContent = percentages.notconfident + '%';
     
     document.getElementById('confidentBar').style.width = percentages.confident + '%';
     document.getElementById('confidentPercent').textContent = percentages.confident + '%';
@@ -207,15 +209,12 @@ function updateEmotionDisplay() {
         }
     }
     
-    const emotionEmojis = {
-        happy: '😊 Happy',
-        sad: '😢 Sad',
-        bold: '💪 Bold',
-        sorrow: '😰 Sorrow',
-        confident: '😎 Confident'
+    const emotionLabels = {
+        notconfident: '😟 Not Confident',
+        confident: '😊 Confident'
     };
     
-    document.getElementById('dominantEmotion').textContent = emotionEmojis[maxEmotion];
+    document.getElementById('dominantEmotion').textContent = emotionLabels[maxEmotion];
 }
 
 // Save interview
@@ -254,7 +253,7 @@ document.getElementById('saveInterview').addEventListener('click', async () => {
         // Ask if user wants to record another
         if (confirm('Would you like to record another interview?')) {
             transcript = '';
-            emotionScores = { happy: 0, sad: 0, bold: 0, sorrow: 0, confident: 0 };
+            emotionScores = { notconfident: 0, confident: 0 };
             document.getElementById('transcript').textContent = 'Your speech will appear here...';
             updateEmotionDisplay();
             document.getElementById('dominantEmotion').textContent = 'Not Analyzed Yet';
