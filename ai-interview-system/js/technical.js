@@ -132,7 +132,7 @@ function getSampleQuestions(topic) {
             { question: "Which of these is not a core data type in Python?", options: ["Lists", "Dictionary", "Tuples", "Class"], correct: 3 },
             { question: "What is the maximum length of a Python identifier?", options: ["16", "32", "64", "No fixed length"], correct: 3 },
             { question: "Which method is used to remove whitespace from the beginning and end of a string?", options: ["strip()", "trim()", "len()", "remove()"], correct: 0 },
-            { question: "What is the output of print(type([]))?", options: ["<class 'list'>", "<class 'tuple'>", "<class 'dict'>", "<class 'set'>"], correct: 0 },
+            { question: "What is the output of print(type([]))?", options: ["class list", "class tuple", "class dict", "class set"], correct: 0 },
             { question: "Which operator is used for floor division in Python?", options: ["/", "//", "%", "**"], correct: 1 },
             { question: "What is used to define a class in Python?", options: ["def", "class", "struct", "object"], correct: 1 },
             { question: "Which function is used to get the length of a list?", options: ["length()", "size()", "len()", "count()"], correct: 2 },
