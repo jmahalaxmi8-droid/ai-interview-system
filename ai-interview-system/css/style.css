@@ -197,12 +197,47 @@ body {
     font-size: 1.1rem;
 }
 
+/* Dashboard Content Layout */
+.dashboard-content {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    margin-top: 30px;
+}
+
 /* Modules Grid */
 .modules-grid {
+    flex: 2;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 25px;
-    margin-top: 30px;
+}
+
+/* Instructions Box */
+.instructions-box {
+    flex: 1;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.instructions-box h3 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 15px;
+}
+
+.instructions-box ol {
+    padding-left: 20px;
+    color: #555;
+    line-height: 1.6;
+}
+
+.instructions-box li {
+    margin-bottom: 12px;
 }
 
 .module-card {
@@ -574,9 +609,12 @@ body {
 }
 
 @keyframes pulse {
-    0%, 100% {
+
+    0%,
+    100% {
         opacity: 1;
     }
+
     50% {
         opacity: 0.5;
     }
@@ -1028,44 +1066,53 @@ table tbody tr:hover {
         flex-direction: column;
         gap: 15px;
     }
-    
+
+    .dashboard-content {
+        flex-direction: column;
+    }
+
     .modules-grid {
         grid-template-columns: 1fr;
+        width: 100%;
     }
-    
+
+    .instructions-box {
+        width: 100%;
+    }
+
     .charts-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .test-header {
         flex-direction: column;
         align-items: flex-start;
     }
-    
+
     .voice-controls {
         flex-direction: column;
     }
-    
+
     .btn-voice {
         width: 100%;
         justify-content: center;
     }
-    
+
     .login-box {
         padding: 30px 20px;
     }
-    
+
     .topic-selection,
     .test-section,
     .results-section,
     .voice-card {
         padding: 25px 20px;
     }
-    
+
     table {
         font-size: 0.85rem;
     }
-    
+
     table th,
     table td {
         padding: 10px;
@@ -1076,19 +1123,19 @@ table tbody tr:hover {
     .dashboard-container h1 {
         font-size: 1.8rem;
     }
-    
+
     .module-icon {
         font-size: 2.5rem;
     }
-    
+
     .module-card h3 {
         font-size: 1.3rem;
     }
-    
+
     .score-card h2 {
         font-size: 2.5rem;
     }
-    
+
     .emotion-label {
         min-width: 90px;
         font-size: 0.9rem;

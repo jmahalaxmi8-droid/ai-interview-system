@@ -23,33 +23,47 @@
         <h1>Welcome to Your Dashboard</h1>
         <p class="dashboard-subtitle">Choose a module to begin your evaluation</p>
 
-        <div class="modules-grid">
-            <div class="module-card" onclick="location.href='aptitude.html'">
-                <div class="module-icon">📊</div>
-                <h3>Aptitude Test</h3>
-                <p>Test your analytical and reasoning skills</p>
-                <button class="btn-module">Start Test</button>
+        <div class="dashboard-content">
+            <div class="modules-grid">
+                <div class="module-card" onclick="location.href='aptitude.html'">
+                    <div class="module-icon">📊</div>
+                    <h3>Aptitude Test</h3>
+                    <p>Test your analytical and reasoning skills</p>
+                    <button class="btn-module">Start Test</button>
+                </div>
+
+                <div class="module-card" onclick="location.href='technical.html'">
+                    <div class="module-icon">💻</div>
+                    <h3>Technical Interview</h3>
+                    <p>Evaluate your technical knowledge</p>
+                    <button class="btn-module">Start Interview</button>
+                </div>
+
+                <div class="module-card" onclick="location.href='voice.html'">
+                    <div class="module-icon">🎤</div>
+                    <h3>Voice Interview</h3>
+                    <p>AI-powered voice and emotion analysis</p>
+                    <button class="btn-module">Start Recording</button>
+                </div>
+
+                <div class="module-card" onclick="location.href='results.html'">
+                    <div class="module-icon">📈</div>
+                    <h3>Results & Analytics</h3>
+                    <p>View your performance and insights</p>
+                    <button class="btn-module">View Results</button>
+                </div>
             </div>
 
-            <div class="module-card" onclick="location.href='technical.html'">
-                <div class="module-icon">💻</div>
-                <h3>Technical Interview</h3>
-                <p>Evaluate your technical knowledge</p>
-                <button class="btn-module">Start Interview</button>
-            </div>
-
-            <div class="module-card" onclick="location.href='voice.html'">
-                <div class="module-icon">🎤</div>
-                <h3>Voice Interview</h3>
-                <p>AI-powered voice and emotion analysis</p>
-                <button class="btn-module">Start Recording</button>
-            </div>
-
-            <div class="module-card" onclick="location.href='results.html'">
-                <div class="module-icon">📈</div>
-                <h3>Results & Analytics</h3>
-                <p>View your performance and insights</p>
-                <button class="btn-module">View Results</button>
+            <div class="instructions-box">
+                <h3>Instructions</h3>
+                <ol>
+                    <li>The aptitude test and technical interview contain 15 questions.</li>
+                    <li>The aptitude test and technical interview consist of only 25 minutes.</li>
+                    <li>Each question has only one correct option, and you must choose one answer.</li>
+                    <li>It includes a voice interview where you have to speak, and the system will detect emotions.</li>
+                    <li>The overall performance and eligibility for the job will be shown in the Results and Analytics
+                        section.</li>
+                </ol>
             </div>
         </div>
     </div>
