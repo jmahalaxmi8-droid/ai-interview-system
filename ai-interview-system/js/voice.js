@@ -45,8 +45,8 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
         document.getElementById('transcript').textContent = transcript || 'Your speech will appear here...';
         
         // Analyze emotions from transcript
-        if (finalTranscript) {
-            analyzeEmotions(finalTranscript);
+        if (transcript) {
+            analyzeEmotions(transcript);
         }
     };
     
@@ -109,6 +109,9 @@ document.getElementById('stopRecording').addEventListener('click', () => {
 
 // Emotion analysis using keyword detection
 function analyzeEmotions(text) {
+    emotionScores.notconfident = 0;
+    emotionScores.confident = 0;
+    
     const lowerText = text.toLowerCase();
     
     // Not Confident keywords
@@ -119,7 +122,9 @@ function analyzeEmotions(text) {
         'scared', 'afraid', 'doubt', 'hesitant', 'uncomfortable'
     ];
     notConfidentKeywords.forEach(keyword => {
-        if (lowerText.includes(keyword)) emotionScores.notconfident += 2;
+        const regex = new RegExp(`\\b${keyword}\\b`, 'g');
+        const matches = lowerText.match(regex);
+        if (matches) emotionScores.notconfident += (2 * matches.length);
     });
     
     // Confident keywords
@@ -130,32 +135,34 @@ function analyzeEmotions(text) {
         'experienced', 'know', 'will', 'can', 'achieve', 'succeed'
     ];
     confidentKeywords.forEach(keyword => {
-        if (lowerText.includes(keyword)) emotionScores.confident += 2;
+        const regex = new RegExp(`\\b${keyword}\\b`, 'g');
+        const matches = lowerText.match(regex);
+        if (matches) emotionScores.confident += (2 * matches.length);
     });
     
     // Analyze sentence structure and tone
+    const exclamationMatches = text.match(/\!/g);
+    if (exclamationMatches) emotionScores.confident += exclamationMatches.length;
+
+    const questionMatches = text.match(/\?/g);
+    if (questionMatches) {
+        const rhetoricalMatches = text.match(/\b(can't we|shouldn't we|isn't it|right\?|correct\?)\b/gi);
+        let rhetoricalCount = rhetoricalMatches ? rhetoricalMatches.length : 0;
+        let normalQuestions = questionMatches.length - rhetoricalCount;
+        emotionScores.confident += rhetoricalCount * 0.5;
+        emotionScores.notconfident += normalQuestions * 0.3;
+    }
+
     const sentences = text.split(/[.!?]+/);
     sentences.forEach(sentence => {
         const trimmed = sentence.trim();
         if (trimmed) {
-            // Exclamation marks indicate confidence
-            if (sentence.includes('!')) emotionScores.confident += 1;
-            
-            // Too many questions might indicate lack of confidence
-            if (sentence.includes('?')) {
-                // Check if it's a rhetorical/confident question
-                if (/\b(can't we|shouldn't we|isn't it|right\?|correct\?)\b/i.test(trimmed)) {
-                    emotionScores.confident += 0.5;
-                } else {
-                    emotionScores.notconfident += 0.3;
-                }
-            }
-            
+            const words = trimmed.split(/\s+/);
             // Long, complex sentences indicate confidence
-            if (trimmed.split(' ').length > 15) emotionScores.confident += 1;
+            if (words.length > 15) emotionScores.confident += 1;
             
             // Short, choppy sentences might indicate nervousness
-            if (trimmed.split(' ').length < 5) emotionScores.notconfident += 0.5;
+            if (words.length < 5) emotionScores.notconfident += 0.5;
             
             // Use of "I can", "I will", "I am" indicates confidence
             if (/\b(i can|i will|i am confident|i'm confident|i know)\b/i.test(trimmed)) {
